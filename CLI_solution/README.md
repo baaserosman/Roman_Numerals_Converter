@@ -66,7 +66,7 @@ LATEST_AMI=$(aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest
 - Now we can run the instance with CLI command. (Do not forget to create userdata.sh under "/home/ec2-user/" folder before run this command)
 
 ```bash
-aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name serdar --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///Users/ODG/Desktop/git_dir/serdar-cw/porfolio_lesson_plan/week_6/CLI_solution/userdata.sh
+aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name firstkey --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///home/ec2-user/userdata.sh
 
 or
 
@@ -93,9 +93,12 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=roman_numbers" --quer
 
 - To delete instances
 ```bash 
-aws ec2 terminate-instances --instance-ids <We have already learned this id with query on above>
+aws ec2 terminate-instances --instance-ids i-0fd980fa2336d7927 <We have already learned this id with query on above>
 ```
 - To delete security groups
 ```bash
 aws ec2 delete-security-group --group-name roman_numbers_sec_grp
 ```
+
+
+https://aws.amazon.com/tr/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/
